@@ -35,4 +35,12 @@ def crawl_web(seed):
     :rtype : a a list of crawled pagest
     :param seed: the starting linkk for crawling
     """
-    return seed
+    to_crawl = [seed]
+    crawled = []
+    while to_crawl:
+        page = to_crawl.pop()
+        if page not in crawled:
+            to_crawl.union(get_all_links(get_page(page)))
+            crawled.append(page)
+
+    return crawled
